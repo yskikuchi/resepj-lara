@@ -96,6 +96,10 @@
     width:50%;
     margin:0 auto;
   }
+  .booking-list h2, .favorite-shops h2{
+    font-size:25px;
+    margin-bottom:20px;
+  }
   .booking_card{
     width:60%;
     color:white;
@@ -105,10 +109,14 @@
     margin-bottom:20px;
     position:relative;
   }
+  .booking_card span{
+    font-size:20px;
+    line-height:1.5em;
+  }
   .booking_card table{
     color:white;
-    font-size:14px;
-    padding:5px;
+    font-size:20px;
+    padding:10px;
   }
   .booking_card th{
     text-align:left;
@@ -142,7 +150,7 @@
   .card-name{
     font-weight:bold;
     font-size:18px;
-    margin: 5px 0;
+    margin: 10px 0;
   }
   .card-content span{
     font-size:15px;
@@ -151,8 +159,8 @@
     display:inline-block;
     width:100px;
     font-size:15px;
-    padding:3px 5px;
-    margin-top:10px;
+    padding:7px 5px;
+    margin-top:20px;
     text-align:center;
     text-decoration:none;
     background:royalblue;

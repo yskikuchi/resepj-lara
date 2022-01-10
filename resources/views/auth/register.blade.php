@@ -47,8 +47,8 @@
     .register-ttl{
         background:royalblue;
         color:white;
-        padding:10px 20px;
-        margin:0;
+        padding:15px 20px;
+        font-size:20px;
     }
     .register-wrapper{
         margin:0 auto;

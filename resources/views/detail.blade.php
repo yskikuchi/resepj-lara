@@ -3,12 +3,17 @@
 @section('content')
 <div class="detail-wrapper">
   <div class="shop-detail">
-    <p class="shop-name">{{$shop->name}}</p>
+    <p class="shop-name">
+      <span class="back-btn"><a href="/">&lt;</a></span>
+      {{$shop->name}}
+    </p>
     @foreach($shop->images as $image)
     <img class="shop-detail_img" src="{{$image->path}}" alt="#">
     @endforeach
-    <span>{{$shop->area}}</span>
-    <span>{{$shop->genre}}</span>
+    <div class="shop-tag">
+      <span>&#035;{{$shop->area}}</span>
+      <span>&#035;{{$shop->genre}}</span>
+    </div>
     <p>{{$shop->detail}}</p>
   </div>
 
@@ -98,12 +103,26 @@
   .shop-detail{
     width:40%;
   }
+  .back-btn{
+    display:inline-block;
+    width:20px;
+    background-color:white;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+
+  }
+  .back-btn a{
+    text-decoration:none;
+  }
   .shop-name{
     font-size:25px;
+    margin-bottom:20px;
   }
   .shop-detail_img{
     width:100%;
     height:auto;
+  }
+  .shop-tag{
+    margin:10px 1px 20px 5px;
   }
   .booking-form{
     width:40%;
@@ -111,6 +130,8 @@
     color:white;
     position:relative;
     padding:0 20px;
+    border-radius:10px;
+    overflow:hidden;
   }
   .booking-form input,select{
     display:block;
@@ -125,6 +146,7 @@
   }
   .booking-ttl{
     font-size:25px;
+    margin:20px 0;
   }
   .booking-table{
     color:white;

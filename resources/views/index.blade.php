@@ -2,15 +2,14 @@
 
 @section('content')
   <div id="app">
-    <!-- <p>@{{selectedList}}</p> -->
-    <div>
-        <select @change="changeArea" class="searchSelect" name="searchArea" v-model="selectedArea">
+    <div class="search-wrapper">
+        <select @change="changeArea" class="search-select" name="searchArea" v-model="selectedArea">
           <option value="All area">All area</option>
           <option value="東京都">東京都</option>
           <option value="大阪府">大阪府</option>
           <option value="福岡県">福岡県</option>
         </select>
-        <select @change="changeGenre" class="searchSelect" name="searchGenre" v-model="selectedGenre">
+        <select @change="changeGenre" class="search-select" name="searchGenre" v-model="selectedGenre">
           <option value="All genre">All genre</option>
           <option value="ラーメン">ラーメン</option>
           <option value="寿司">寿司</option>
@@ -18,6 +17,7 @@
           <option value="居酒屋">居酒屋</option>
           <option value="イタリアン">イタリアン</option>
         </select>
+        <input @keyup="inputWord" class="search-input" type="text" placeholder="Search..." v-model="searchWord">
       </div>
       <div class="card-wrapper" id="card-wrapper">
         <section v-for="shop in shops" v-show="selectedList.includes(shop.name)" class="card">
@@ -48,6 +48,7 @@
         user: @json($user),
         selectedArea:"All area",
         selectedGenre:"All genre",
+        searchWord:"",
         selectedList:[],
     },
     mounted:function(){
@@ -76,38 +77,54 @@
           const shopGenre = this.shops[i].genre;
           if(this.selectedArea == "All area"){
             if(this.selectedGenre == "All genre"){
-                if(!this.selectedList.includes(shopName)){
-                  this.selectedList.push(shopName);
-                }
+              if(this.searchWord){
+                this.searchedByWord(this.shops[i].name);
               }else{
-                if(shopGenre == this.selectedGenre){
+                if(!this.selectedList.includes(shopName)){
+                this.selectedList.push(shopName);
+                }
+              }
+            }else{
+              if(shopGenre == this.selectedGenre){
+                if(this.searchWord){
+                  this.searchedByWord(this.shops[i].name);
+                }else{
                   if(!this.selectedList.includes(shopName)){
                   this.selectedList.push(shopName);
                   }
                 }
               }
+            }
           }else{
             if(this.selectedGenre == "All genre"){
               if(shopArea == this.selectedArea){
-                if(!this.selectedList.includes(shopName)){
-                this.selectedList.push(shopName);
+                if(this.searchWord){
+                  this.searchedByWord(this.shops[i].name);
+                }else{
+                  if(!this.selectedList.includes(shopName)){
+                  this.selectedList.push(shopName);
+                  }
                 }
               }else{
                 this.selectedList = this.selectedList.filter(function(e){
                   return ! shopName.includes(e);
                 });
-                }
+              }
             }else{
               if(shopGenre == this.selectedGenre && shopArea == this.selectedArea){
-                if(!this.selectedList.includes(shopName)){
+                if(this.searchWord){
+                this.searchedByWord(this.shops[i].name);
+                }else{
+                  if(!this.selectedList.includes(shopName)){
                   this.selectedList.push(shopName);
+                  }
                 }
               }else{
                 this.selectedList = this.selectedList.filter(function(e){
                   return ! shopName.includes(e);
                 })
               }
-              }
+            }
           }
           }
       },
@@ -118,31 +135,47 @@
           const shopGenre = this.shops[i].genre;
           if(this.selectedGenre == "All genre"){
             if(this.selectedArea == "All area"){
-                if(!this.selectedList.includes(shopName)){
-                  this.selectedList.push(shopName);
-                }
+              if(this.searchWord){
+                this.searchedByWord(this.shops[i].name);
               }else{
-                if(shopArea == this.selectedArea){
+                if(!this.selectedList.includes(shopName)){
+                this.selectedList.push(shopName);
+                }
+              }
+            }else{
+              if(shopGenre == this.selectedGenre){
+                if(this.searchWord){
+                  this.searchedByWord(this.shops[i].name);
+                }else{
                   if(!this.selectedList.includes(shopName)){
                   this.selectedList.push(shopName);
                   }
                 }
               }
+            }
           }else{
             if(this.selectedArea == "All area"){
               if(shopGenre == this.selectedGenre){
-                if(!this.selectedList.includes(shopName)){
-                this.selectedList.push(shopName);
+                if(this.searchWord){
+                  this.searchedByWord(this.shops[i].name);
+                }else{
+                  if(!this.selectedList.includes(shopName)){
+                  this.selectedList.push(shopName);
+                  }
                 }
               }else{
-                this.selectedList = this.selectedList.filter(function(e){
-                  return ! shopName.includes(e);
-                });
-                }
+              this.selectedList = this.selectedList.filter(function(e){
+                return ! shopName.includes(e);
+              });
+              }
             }else{
               if(shopGenre == this.selectedGenre && shopArea == this.selectedArea){
-                if(!this.selectedList.includes(shopName)){
+                if(this.searchWord){
+                  this.searchedByWord(this.shops[i].name);
+                }else{
+                  if(!this.selectedList.includes(shopName)){
                   this.selectedList.push(shopName);
+                  }
                 }
               }else{
                 this.selectedList = this.selectedList.filter(function(e){
@@ -151,18 +184,61 @@
               }
               }
           }
-        }}
+        }
+      },
+      searchedByWord(shopName){
+            if(shopName.search(this.searchWord) != -1){
+              if(!this.selectedList.includes(shopName)){
+                this.selectedList.push(shopName);
+              }
+              }else{
+                  this.selectedList = this.selectedList.filter(function(e){
+                  return ! shopName.includes(e);
+                  })
+                }
+      },
+      inputWord(){
+        for(let i = 0; i < this.shops.length; i++){
+          const shopName = this.shops[i].name;
+          const shopArea = this.shops[i].area;
+          const shopGenre = this.shops[i].genre;
+          console.log(shopName.search(this.searchWord));
+          if(this.selectedArea == "All area" && this.selectedGenre == "All genre"){
+            this.searchedByWord(this.shops[i].name);
+          }
+          if(shopArea == this.selectedArea && this.selectedGenre == "All genre"){
+            this.searchedByWord(this.shops[i].name);
+          }
+          if(this.selectedArea == "All area" && shopGenre == this.selectedGenre){
+            this.searchedByWord(this.shops[i].name);
+          }
+          if(shopArea == this.selectedArea && shopGenre == this.selectedGenre){
+            this.searchedByWord(this.shops[i].name);
+          }
+        }
+      },
     }
   })
 </script>
 @endsection
 
 <style>
-  .searchSelect{
-    height:30px;
+  .search-wrapper{
+    width:90%;
+    text-align:right;
+    margin-bottom:40px;
+  }
+  .search-select, .search-input{
+    height:40px;
     border:none;
     background-color:white;
     box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.3);
+  }
+  .search-select{
+    width:100px;
+  }
+  .search-input{
+    width:300px;
   }
   .card-wrapper{
     display:flex;
@@ -187,7 +263,7 @@
   .card-name{
     font-weight:bold;
     font-size:18px;
-    margin: 5px 0;
+    margin: 10px 0;
   }
   .card-content span{
     font-size:15px;
@@ -196,8 +272,8 @@
     display:inline-block;
     width:100px;
     font-size:15px;
-    padding:3px 5px;
-    margin-top:10px;
+    padding:7px 5px;
+    margin-top:20px;
     text-align:center;
     text-decoration:none;
     background:royalblue;
