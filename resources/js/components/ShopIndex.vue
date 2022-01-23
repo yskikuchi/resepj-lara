@@ -49,7 +49,7 @@
     },
     methods:{
       favorite(){
-        console.log('どう');
+        console.log('a');
         // const sendData = {
         //   user_id:user_id,
         //   shop_id:shop_id,

@@ -1,46 +1,45 @@
 @extends('layouts.default')
 
 @section('content')
-
+<div id="app">
     <div class="register-wrapper">
         <p class="register-ttl">Registration</p>
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-auth-validation-errors class="error" :errors="$errors" />
 
-        <form class="register-form" method="POST" action="{{ route('register') }}">
-            @csrf
-                <!-- Name -->
-            <div>
-                <input type="text" name="name" placeholder="Username" required>
-                    <!-- <x-label for="name" :value="__('Name')" />
-                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus /> -->
-            </div>
-                <!-- Email Address -->
-            <div>
-                <input type="email" name="email" placeholder="Email" required>
-                <!-- <x-label for="email" :value="__('Email')" />
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required /> -->
-            </div>
-            <div>
-                <input type="text" name="tel" placeholder="TEL">
-            </div>
-                <!-- Password -->
-            <div>
-                <input type="password" name="password" placeholder="Password" required>
-                    <!-- <x-label for="password" :value="__('Password')" />
+            <form class="register-form" method="POST" action="{{ route('register') }}">
+                @csrf
+                    <!-- Name -->
+                <div>
+                        <input type="text" name="name" placeholder="Username" required>
+                </div>
+                    <!-- Email Address -->
+                <div>
+                    <input type="email" name="email" placeholder="Email" required>
 
-                    <x-input id="password" class="block mt-1 w-full"
-                                    type="password"
-                                    name="password"
-                                    required autocomplete="new-password" /> -->
-            </div>
+                </div>
+                <div>
+                    <input type="text" name="tel" placeholder="TEL">
 
-            <div>
-                <button class="register-btn">登録</button>
+                </div>
+                    <!-- Password -->
+                <div>
+                    <input type="password" name="password" placeholder="Password" required>
+
+                </div>
+
+                <div>
+                    <button class="register-btn">登録</button>
+                </div>
+                <p class="to-login"><a href="/login">会員の方はこちら</a></p>
             </div>
-            <p class="to-login"><a href="/login">会員の方はこちら</a></p>
-        </div>
+</div>
+<script>
+    const vm = new Vue({
+    el:'#app',
+    })
+</script>
 
 @endsection
 <style>
@@ -86,5 +85,9 @@
     }
     .to-login a{
         color:royalblue;
+    }
+    .error{
+        color:red;
+        margin:10px;
     }
 </style>

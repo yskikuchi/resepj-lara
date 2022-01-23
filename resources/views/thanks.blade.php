@@ -23,6 +23,7 @@
   }
   .thanks-wrapper p{
     font-size:25px;
+    margin-bottom:20px;
   }
   .thanks-wrapper a{
     display:block;

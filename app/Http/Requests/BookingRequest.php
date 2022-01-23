@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\BookingRule;
+use Illuminate\Support\Facades\Auth;
 
 class BookingRequest extends FormRequest
 {
@@ -23,13 +25,19 @@ class BookingRequest extends FormRequest
      */
     public function rules()
     {
-        // $date= $this->date;
-        // $time = $this->time;
+        $user_id = Auth::id();
         $startDate = date('Y-m-d');
         $endDate = date('Y-m-d', strtotime('1month'));
         return [
             'date'=> 'required|date|after_or_equal:'.$startDate.'|before_or_equal:'.$endDate,
             'number_of_people' => 'required',
+            'time' =>[
+                new BookingRule(
+                    $user_id,
+                    $this->date,
+                    $this->time,
+                )
+            ]
         ];
     }
 }

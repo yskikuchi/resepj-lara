@@ -21,7 +21,7 @@ class CreateBookingsTable extends Migration
             $table->time('time');
             $table->integer('number_of_people');
             $table->dateTime('canceled_at')->nullable();
-            $table->dateTime('deleted_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

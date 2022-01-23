@@ -143,7 +143,7 @@
                 }
               }
             }else{
-              if(shopGenre == this.selectedGenre){
+              if(shopArea == this.selectedArea){
                 if(this.searchWord){
                   this.searchedByWord(this.shops[i].name);
                 }else{

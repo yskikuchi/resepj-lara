@@ -25,6 +25,7 @@
   }
   .done-wrapper p{
     font-size:25px;
+    margin-bottom:20px;
   }
   .done-wrapper a{
     display:block;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Spline+Sans:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/reset.css">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vee-validate@3.2.3/dist/vee-validate.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/vee-validate@3.2.3/dist/rules.umd.min.js"></script>
   <script src="{{ asset('js/app.js') }}" defer="defer"></script>
   <title>Rese</title>
 </head>
@@ -26,6 +28,7 @@
     </div>
   @yield('content')
   </div>
+
 </body>
 <style>
   body{
